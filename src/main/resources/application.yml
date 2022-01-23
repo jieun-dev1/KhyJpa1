@@ -1,27 +1,25 @@
 spring:
   datasource:
-    //여러개 한번에 접근 시 좀더 빠르게 처리됨.
-    url: jdbc:h2:tcp://localhost/~/jpashop;MVCC=TRUE
+    url: jdbc:h2:tcp://localhost/~/jpashop #여러개 한번에 접근 시 좀더 빠르게 처리됨.
+    #    url: jdbc:h2:tcp://localhost/~/jpashop;MVCC=TRUE
     username: sa
     password:
-    //데이터베이스 커넥션과 관련된 데이터 소스 설정이 완료
-    driver-class-name: org.h2.Driver
+    driver-class-name: org.h2.Driver #데이터베이스 커넥션과 관련된 데이터 소스 설정이 완료
 
   jpa:
     hibernate:
-      //앱 실행 시점에 내가 가진 테이블 다 지우고 다시 생성.
-      ddl-auto: create
+      ddl-auto: create #앱 실행 시점에 내가 가진 테이블 다 지우고 다시 생성.
+
     properties:
       hibernate:
 #        show_sql: true
         format_sql: true
 
-//jpa 나 hibernate가 생성하는 sql 이 다 보임.
-//jpa show_sql 은 운영 환경에서, 아래는 log 로 (후자가 맞다)
-logging:
-  level:
+# jpa 나 hibernate가 생성하는 sql 이 다 보임.
+# jpa show_sql 은 운영 환경에서, 아래는 log 로 (후자가 맞다)
+logging.level:
     org.hibernate.SQL: debug
-
+    org.hibernate.type: trace
 
 #spring:
 #  devtools:
