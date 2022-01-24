@@ -1,6 +1,7 @@
-package jpabook.jpashop;
+package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,30 +10,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
+import javax.persistence.EntityManager;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MemberRepositoryTest {
-
     @Autowired MemberRepository memberRepository;
-
     @Test
     @Transactional
     @Rollback(false)
-    public void testMember() throws Exception {
-        //given
+    public void testMember() {
         Member member = new Member();
-        member.setUsername("memberA");
-
-        //when
-        //member save하고, 저장된 Id 뽑기.
-        Long savedId = memberRepository.save(member);
-        Member findMember = memberRepository.find(savedId);
-
-        //then
+        member.setName("memberA");
+        Long saveId = memberRepository.save(member);
+        Member findMember = memberRepository.find(saveId);
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
-        Assertions.assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
-        Assertions.assertThat(findMember).isEqualTo(member);
-    }
 
+        Assertions.assertThat(findMember.getName()).isEqualTo(member.getName())
+        ;
+        Assertions.assertThat(findMember).isEqualTo(member); //JPA 엔티티 동일성 보
+
+    }
 }
